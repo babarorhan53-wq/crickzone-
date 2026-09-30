@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CrickZone Pro — Live Cricket Portal</title>
+<style>
+:root{--bg:#06100c;--card:#0d1b15;--card2:#11251b;--green:#20df7a;--green2:#0fa65b;--white:#f5fff9;--muted:#94aa9e;--line:#20372b;--red:#ff5264;--gold:#ffc857}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% 0,#174b32 0,transparent 30%),var(--bg);color:var(--white);font:15px Inter,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+.container{width:min(1200px,92%);margin:auto}.top{position:sticky;top:0;z-index:30;background:#06100cee;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{font-size:25px;font-weight:950}.logo i{font-style:normal;color:var(--green)}nav{display:flex;gap:19px}nav a{color:#bdd0c5;text-decoration:none;font-weight:700;font-size:13px}nav a:hover{color:var(--green)}
+.btn{border:0;border-radius:11px;background:var(--green);color:#031008;font-weight:900;padding:11px 15px}.btn.dark{background:transparent;color:var(--white);border:1px solid #315143}.btn.red{background:var(--red);color:white}.btn.small{padding:8px 11px;font-size:12px}
+.hero{padding:55px 0 35px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}.pill{display:inline-block;background:#103a27;border:1px solid #286144;color:#70efad;padding:7px 11px;border-radius:99px;font-size:11px;font-weight:900}h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-3px;margin:17px 0}.green{color:var(--green)}.lead{color:var(--muted);max-width:650px;font-size:17px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero-card,.card{background:linear-gradient(145deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px}.hero-card{padding:22px}.tiny{color:var(--muted);font-size:11px}.live{color:var(--red);font-weight:900}.live:before{content:"";display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;margin-right:6px;box-shadow:0 0 10px var(--red)}.scoreline{display:flex;justify-content:space-between;align-items:center;margin:22px 0}.scoreline .team{font-weight:900}.scoreline strong{font-size:29px}.vs{color:var(--muted);font-weight:900}
+section{padding:28px 0 50px}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:16px}.head h2{margin:0;font-size:28px}.head p{margin:4px 0;color:var(--muted);font-size:13px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{padding:17px}.match{display:flex;justify-content:space-between;gap:10px;align-items:center}.match h3{margin:0;font-size:16px}.score{font-weight:950;font-size:21px}.meta{color:var(--muted);font-size:12px;margin-top:7px}.tag{display:inline-block;padding:5px 8px;border-radius:7px;background:#153c29;color:#70e5a7;font-size:10px;font-weight:900}.news{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.newshero{min-height:260px;display:flex;align-items:end;padding:22px;background:linear-gradient(145deg,#123b29,#07110c)}.newshero h3{font-size:28px;margin:10px 0}.newslist{display:grid;gap:10px}.newsitem{display:flex;gap:13px;align-items:center}.icon{width:58px;height:52px;border-radius:11px;background:#173d2b;display:grid;place-items:center;font-size:24px;flex:none}.player{text-align:center}.avatar{height:78px;width:78px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#1d6241,#10291d);font-size:31px;border:2px solid #326c4e}
+.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted);font-size:11px;text-transform:uppercase}.form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.form input,.form select{background:#08150f;color:white;border:1px solid #294536;border-radius:9px;padding:11px;outline:none}.form input:focus,.form select:focus{border-color:var(--green)}
+.admin{border:1px solid #315443;background:#091610;border-radius:20px;padding:20px}.adminbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}.adminhidden{display:none}.admingrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.panel{background:#0c1b14;border:1px solid var(--line);border-radius:14px;padding:15px}.panel h3{margin-top:0}.toast{position:fixed;right:18px;bottom:18px;background:#163c29;border:1px solid #3c7957;padding:13px 16px;border-radius:10px;display:none;z-index:50}.footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted)}
+@media(max-width:850px){nav{display:none}.hero,.news,.admingrid{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.grid4{grid-template-columns:1fr 1fr}h1{font-size:46px}.nav{height:62px}.form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="container nav"><a class="logo">Crick<i>Zone</i> 🏏</a><nav><a href="#live">LIVE</a><a href="#matches">MATCHES</a><a href="#news">NEWS</a><a href="#players">PLAYERS</a><a href="#rankings">RANKINGS</a><a href="#admin">ADMIN</a></nav><button class="btn small" onclick="loginAdmin()">Admin Login</button></div></header>
+
+<main>
+<section class="container hero">
+<div><span class="pill">● LIVE CRICKET INFORMATION PORTAL</span><h1>All Cricket.<br><span class="green">One Dashboard.</span></h1><p class="lead">A complete demo cricket portal with live-score simulation, fixtures, scorecards, player profiles, rankings, news and an editable admin panel.</p><div class="actions"><a class="btn" href="#live">View Live Score</a><a class="btn dark" href="#admin">Open Admin</a></div></div>
+<div class="hero-card"><div style="display:flex;justify-content:space-between"><b>PAKISTAN vs INDIA</b><span class="live">LIVE</span></div><div class="tiny">Asia Cup • Super 4 • Demo Match</div><div class="scoreline"><div><div class="team">🇵🇰 Pakistan</div><strong id="heroScore">168/5</strong><div class="tiny" id="heroOvers">18.4 overs</div></div><span class="vs">VS</span><div style="text-align:right"><div class="team">🇮🇳 India</div><strong>164/7</strong><div class="tiny">20 overs</div></div></div><div class="tag">AUTO SCORE SIMULATION ON</div></div>
+</section>
+
+<section class="container" id="live"><div class="head"><div><h2>🔴 Live Matches</h2><p>Demo scores refresh automatically</p></div><span class="pill" id="lastUpdate">Updated just now</span></div><div class="grid3" id="liveGrid"></div></section>
+
+<section class="container" id="matches"><div class="head"><div><h2>📅 Fixtures</h2><p>Upcoming and recent matches</p></div><select id="filter" onchange="renderMatches()" style="background:#0d1b15;color:white;border:1px solid #294536;border-radius:9px;padding:9px"><option value="all">All Formats</option><option value="T20">T20</option><option value="ODI">ODI</option><option value="Test">Test</option></select></div><div class="grid3" id="matchGrid"></div></section>
+
+<section class="container" id="news"><div class="head"><div><h2>📰 Latest News</h2><p>Demo editorial feed</p></div></div><div class="news"><article class="card newshero"><div><span class="tag">FEATURE</span><h3>How modern T20 cricket is changing the way teams build innings</h3><p class="meta">Analysis • 8 min read • Demo article</p></div></article><div class="newslist"><article class="card newsitem"><div class="icon">🏏</div><div><b>Pakistan squad prepares for the next challenge</b><div class="meta">2 hours ago</div></div></article><article class="card newsitem"><div class="icon">🏆</div><div><b>Major tournament fixtures added to the calendar</b><div class="meta">5 hours ago</div></div></article><article class="card newsitem"><div class="icon">📈</div><div><b>Top performers move up the demo rankings</b><div class="meta">Today</div></div></article></div></div></section>
+
+<section class="container" id="players"><div class="head"><div><h2>👤 Player Profiles</h2><p>Click a player for profile details</p></div></div><div class="grid4" id="playerGrid"></div></section>
+
+<section class="container" id="rankings"><div class="head"><div><h2>📊 Rankings & Statistics</h2><p>Demo season data</p></div></div><div class="card tablewrap"><table class="table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>Role</th><th>Runs</th><th>Wickets</th><th>Rating</th></tr></thead><tbody id="rankTable"></tbody></table></div></section>
+
+<section class="container" id="admin"><div class="head"><div><h2>⚙️ Admin Dashboard</h2><p>Manage demo matches, players and site settings</p></div></div><div class="admin"><div class="adminbar"><b>CrickZone Control Center</b><span class="tag">DEMO ADMIN</span></div><div id="adminLoginBox"><p class="meta">Login to edit the demo database.</p><button class="btn" onclick="loginAdmin()">Login as Demo Admin</button></div><div id="adminPanel" class="adminhidden"><div class="admingrid"><div class="panel"><h3>Add Match</h3><div class="form"><input id="m1" placeholder="Home team"><input id="m2" placeholder="Away team"><select id="mf"><option>T20</option><option>ODI</option><option>Test</option></select><input id="md" placeholder="Date / Time"><button class="btn" onclick="addMatch()">Add Match</button></div></div><div class="panel"><h3>Add Player</h3><div class="form"><input id="pn" placeholder="Player name"><input id="pt" placeholder="Team"><input id="pr" placeholder="Role"><input id="ps" type="number" placeholder="Runs"><button class="btn" onclick="addPlayer()">Add Player</button></div></div></div><div class="panel" style="margin-top:15px"><h3>Live Score Controls</h3><button class="btn small" onclick="manualRun(1)">+1 Run</button> <button class="btn small" onclick="manualRun(4)">+4</button> <button class="btn small" onclick="manualRun(6)">+6</button> <button class="btn red small" onclick="manualWicket()">Wicket</button> <button class="btn dark small" onclick="resetDemo()">Reset Demo</button><span class="meta" style="margin-left:10px">Changes are saved in this browser only.</span></div></div></div></section>
+</main>
+<footer class="footer"><div class="container"><b style="color:white">CrickZone Pro 🏏</b> — Demo cricket information portal • Frontend prototype • © 2026</div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const defaultMatches=[
+ {a:"🇵🇰 Pakistan",b:"🇳🇿 New Zealand",format:"T20",date:"Tomorrow • 7:30 PM",place:"Lahore"},
+ {a:"🇿🇦 South Africa",b:"🇮🇳 India",format:"ODI",date:"2 Oct • 2:00 PM",place:"Cape Town"},
+ {a:"🏴 England",b:"🇦🇺 Australia",format:"Test",date:"5 Oct • 10:00 AM",place:"London"},
+ {a:"🇱🇰 Sri Lanka",b:"🇧🇩 Bangladesh",format:"T20",date:"7 Oct • 6:30 PM",place:"Colombo"},
+ {a:"🇦🇺 Australia",b:"🇿🇦 South Africa",format:"ODI",date:"9 Oct • 1:00 PM",place:"Sydney"},
+ {a:"🇵🇰 Pakistan",b:"🇿🇦 South Africa",format:"T20",date:"11 Oct • 7:30 PM",place:"Karachi"}
+];
+const defaultPlayers=[
+{name:"Babar Azam",team:"Pakistan",role:"Batter",runs:982,wk:0,rating:874,flag:"🇵🇰"},
+{name:"Shaheen Afridi",team:"Pakistan",role:"Bowler",runs:112,wk:34,rating:861,flag:"🇵🇰"},
+{name:"Virat Kohli",team:"India",role:"Batter",runs:945,wk:0,rating:858,flag:"🇮🇳"},
+{name:"Pat Cummins",team:"Australia",role:"Bowler",runs:180,wk:29,rating:842,flag:"🇦🇺"},
+{name:"Rohit Sharma",team:"India",role:"Batter",runs:901,wk:0,rating:833,flag:"🇮🇳"},
+{name:"Jasprit Bumrah",team:"India",role:"Bowler",runs:91,wk:31,rating:829,flag:"🇮🇳"},
+{name:"Mohammad Rizwan",team:"Pakistan",role:"Wicketkeeper",runs:811,wk:0,rating:818,flag:"🇵🇰"},
+{name:"Travis Head",team:"Australia",role:"Batter",runs:790,wk:0,rating:805,flag:"🇦🇺"}
+];
+let matches=JSON.parse(localStorage.getItem("cz_matches")||"null")||defaultMatches;
+let players=JSON.parse(localStorage.getItem("cz_players")||"null")||defaultPlayers;
+let runs=168,wickets=5,balls=112;
+
+function save(){localStorage.setItem("cz_matches",JSON.stringify(matches));localStorage.setItem("cz_players",JSON.stringify(players))}
+function overs(){return Math.floor(balls/6)+"."+(balls%6)}
+function renderLive(){
+ const cards=[
+  ["🇵🇰 Pakistan","🇮🇳 India",runs+"/"+wickets,overs(),"Pakistan batting"],
+  ["🏴 England","🇦🇺 Australia","142/3","16.2","England batting"],
+  ["🇱🇰 Sri Lanka","🇧🇩 Bangladesh","204/7","20.0","Completed • Sri Lanka won"]
+ ];
+ document.getElementById("liveGrid").innerHTML=cards.map(x=>`<div class="card"><div class="match"><h3>${x[0]}<br>${x[1]}</h3><div style="text-align:right"><div class="score">${x[2]}</div><div class="tiny">${x[3]}</div></div></div><div class="meta">${x[4]}</div></div>`).join("");
+ document.getElementById("heroScore").textContent=runs+"/"+wickets;document.getElementById("heroOvers").textContent=overs()+" overs";
+}
+function renderMatches(){
+ let f=document.getElementById("filter").value;
+ document.getElementById("matchGrid").innerHTML=matches.filter(x=>f==="all"||x.format===f).map(x=>`<div class="card"><span class="tag">${x.format}</span><h3 style="margin:11px 0">${x.a} vs ${x.b}</h3><div class="meta">${x.date} • ${x.place}</div></div>`).join("");
+}
+function renderPlayers(){
+ document.getElementById("playerGrid").innerHTML=players.map((p,i)=>`<div class="card player" onclick="profile(${i})"><div class="avatar">${p.flag}</div><h3>${p.name}</h3><div class="meta">${p.team} • ${p.role}</div><div style="margin-top:9px"><span class="tag">${p.rating} RATING</span></div></div>`).join("");
+ document.getElementById("rankTable").innerHTML=players.slice().sort((a,b)=>b.rating-a.rating).map((p,i)=>`<tr><td>${i+1}</td><td>${p.flag} ${p.name}</td><td>${p.team}</td><td>${p.role}</td><td>${p.runs}</td><td>${p.wk}</td><td><b>${p.rating}</b></td></tr>`).join("");
+}
+function profile(i){let p=players[i];toast(`${p.name} • ${p.team} • ${p.role} • ${p.runs} runs • ${p.wk} wickets • Rating ${p.rating}`)}
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>x.style.display="none",3000)}
+function loginAdmin(){document.getElementById("adminLoginBox").style.display="none";document.getElementById("adminPanel").classList.remove("adminhidden");toast("Demo Admin logged in")}
+function addMatch(){let a=m1.value.trim(),b=m2.value.trim();if(!a||!b)return toast("Enter both teams");matches.unshift({a,b,format:mf.value,date:md.value||"TBD",place:"TBD"});save();renderMatches();toast("Match added")}
+function addPlayer(){let n=pn.value.trim();if(!n)return toast("Enter player name");players.unshift({name:n,team:pt.value||"Pakistan",role:pr.value||"Player",runs:+ps.value||0,wk:0,rating:700,flag:"🏏"});save();renderPlayers();toast("Player added")}
+function manualRun(n){runs+=n;balls++;renderLive();toast("Score updated: +"+n+" run")}
+function manualWicket(){if(wickets<10){wickets++;balls++;renderLive();toast("Wicket added")}}
+function resetDemo(){runs=168;wickets=5;balls=112;matches=defaultMatches.slice();players=defaultPlayers.slice();save();renderAll();toast("Demo data reset")}
+function renderAll(){renderLive();renderMatches();renderPlayers()}
+renderAll();
+setInterval(()=>{if(wickets<10){let r=[0,1,1,2,4,6][Math.floor(Math.random()*6)];if(Math.random()<.08)wickets++;runs+=r;balls++;renderLive();document.getElementById("lastUpdate").textContent="Updated "+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}},7000);
+</script>
+</body>
+</html>
